@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 # -------------------------
 # Hyperparameters
 # -------------------------
-TOTAL_STEPS = 40000
+TOTAL_STEPS = 80000
 BATCH_SIZE = 64
 GAMMA = 0.9
 LR = 1e-3
@@ -245,22 +245,43 @@ for step in range(TOTAL_STEPS):
 
 # cleanup
 traci.close()
-print(f"Training done. Cumulative reward: {cumulative_reward:.2f}")
-print(f"Average reward per step: {cumulative_reward/TOTAL_STEPS:.2f}")
 
-# Plot results
-plt.figure(figsize=(10,6))
+# -------------------------
+# Final Plotting (with padded moving averages)
+# -------------------------
+def padded_moving_average(data, window):
+    pad_width = window // 2
+    padded = np.pad(data, (pad_width, pad_width), mode='edge')
+    return np.convolve(padded, np.ones(window)/window, mode='valid')
+
+print(f"Training done. Cumulative reward: {cumulative_reward:.2f}")
+print(f"Average reward per step: {cumulative_reward / TOTAL_STEPS:.2f}")
+
+plt.figure(figsize=(10, 6))
 plt.plot(reward_per_step, label="Reward per Step")
-plt.xlabel("Step")
+plt.xlabel("Simulation Step")
 plt.ylabel("Reward")
 plt.title("QMIX Reward per Step")
-plt.legend(); plt.grid(True); plt.show()
+plt.grid(True)
+plt.legend()
+plt.show()
 
-window=100
-smooth = np.convolve(reward_per_step, np.ones(window)/window, mode='valid')
-plt.figure(figsize=(10,6))
-plt.plot(smooth, label=f"{window}-step MA")
-plt.xlabel("Step")
+# Moving averages and trendlines
+window = 100
+trend_window_1 = 1000
+trend_window_2 = 10000
+
+smoothed = padded_moving_average(reward_per_step, window)
+trendline_1 = padded_moving_average(smoothed, trend_window_1)
+trendline_2 = padded_moving_average(smoothed, trend_window_2)
+
+plt.figure(figsize=(10, 6))
+plt.plot(smoothed, label=f"{window}-Step Moving Average")
+plt.plot(trendline_1, 'r--', label=f"{trend_window_1}-Step Trendline")
+plt.plot(trendline_2, 'g--', label=f"{trend_window_2}-Step Trendline")
+plt.xlabel("Simulation Step")
 plt.ylabel("Smoothed Reward")
-plt.title("QMIX Smoothed Reward")
-plt.legend(); plt.grid(True); plt.show()
+plt.title("QMIX: Smoothed Reward with Trendlines")
+plt.grid(True)
+plt.legend()
+plt.show()

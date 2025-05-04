@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-03 19:27:55 by Eclipse SUMO netedit Version 1.22.0
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="C:\Users\Tim\Documents\GitHub\SUMO-Traffic-Simulator-Tutorial\FourWay.sumocfg"/>
+        <additional-files value="C:\Users\Tim\Documents\GitHub\SUMO-Traffic-Simulator-Tutorial\FourWay.add.xml"/>
+        <route-files value="C:\Users\Tim\Documents\GitHub\SUMO-Traffic-Simulator-Tutorial\FourWay.rou.xml"/>
+        <sumo-net-file value="C:\Users\Tim\Documents\GitHub\SUMO-Traffic-Simulator-Tutorial\FourWay.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="J1" type="static" programID="0" offset="0">
+        <phase duration="400" state="rrrrGGGgrrrrGGGg"/>
+        <phase duration="400" state="rrrryyygrrrryyyg"/>
+        <phase duration="400" state="rrrrrrrGrrrrrrrG"/>
+        <phase duration="400" state="rrrrrrryrrrrrrry"/>
+        <phase duration="400" state="GGGgrrrrGGGgrrrr"/>
+        <phase duration="400" state="yyygrrrryyygrrrr"/>
+        <phase duration="400" state="rrrGrrrrrrrGrrrr"/>
+        <phase duration="400" state="rrryrrrrrrryrrrr"/>
+    </tlLogic>
+</additional>
